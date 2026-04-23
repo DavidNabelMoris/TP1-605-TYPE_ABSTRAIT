@@ -20,16 +20,26 @@ def swap(arr, i, j):
 
 
 def partition(t, p, q):
+   assert_check(precondition_partition(t, p, q), "Précondition non respectée")
    pivot = t[q]
    i = p - 1
    
    for j in range(p,q):
+       assert_check(invariant_partition(t, p, i, j, pivot), "Invariant violé")
        if t[j] < pivot:
            i += 1
            swap(t,i,j)
    swap(t,(i+1),q)
 
    return i+1
+
+def invariant_partition(t, p, i, j, pivot):
+    return (
+        all(t[k] < pivot for k in range(p, i+1)) and
+        all(t[k] >= pivot for k in range(i+1, j))
+    )
+
+
 
 
 
