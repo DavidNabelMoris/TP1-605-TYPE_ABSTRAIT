@@ -1,6 +1,6 @@
 import random
 
-# ─── Assertions axiomatiques ───────────────────────────────────────────────────
+# ─── Assertions axiomatiques & Checkers ───────────────────────────────────────────────────
 
 def assert_check(condition, message):
     if not condition:
@@ -164,7 +164,7 @@ def run_tests():
         ("Tous identiques",    [7, 7, 7, 7]),
     ]
 
-    print(f"{'Cas':<22} {'Avant':<35} {'QuickSort':<35} {'Stable':<35} {'Interval':<35} {'OK?'}")
+    print(f"{'Cas':<22} {'Avant':<35} {'QuickSort':<35} {'Fusion':<35} {'Intervalles':<35} {'OK?'}")
     print("─" * 160)
 
     for nom, t in cas:
@@ -175,16 +175,16 @@ def run_tests():
         t3 = t.copy()
 
         quicksort(t1, 0, len(t1) - 1)
-        stable = stabilized_sort(t2)
+        fusion = stabilized_sort(t2)
         interval_sort(t3)
 
         ok = (
             is_sorted(t1) and
-            is_sorted(stable) and
+            is_sorted(fusion) and
             is_sorted(t3) and
-            sorted(avant) == t1 == stable == t3
+            sorted(avant) == t1 == fusion == t3
         )
 
-        print(f"{nom:<22} {str(avant):<35} {str(t1):<35} {str(stable):<35} {str(t3):<35} {'✓' if ok else '✗ ERREUR'}")
+        print(f"{nom:<22} {str(avant):<35} {str(t1):<35} {str(fusion):<35} {str(t3):<35} {'✓' if ok else '✗ ERREUR'}")
 
 print(run_tests())
