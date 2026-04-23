@@ -23,6 +23,12 @@ def post_partition(t, p, q, r):
 def swap(t, i, j):
     t[i], t[j] = t[j], t[i]
 
+def invariant_partition(t, p, i, j, pivot):
+    return (
+        all(t[k] < pivot for k in range(p, i+1)) and
+        all(t[k] >= pivot for k in range(i+1, j))
+    )
+
 
 # ─── Procédure PARTITION alternative ──────────────────────────────────────────
 
@@ -41,18 +47,11 @@ def partition(t, p, q):
        if t[j] < pivot:
            i += 1
            swap(t,i,j)
-   swap(t,(i+1),q)
+   r = i + 1
+   swap(t,r,q)
    assert_check(post_partition(t, p, q, r), "Postcondition violée")
 
-   return i+1
-
-def invariant_partition(t, p, i, j, pivot):
-    return (
-        all(t[k] < pivot for k in range(p, i+1)) and
-        all(t[k] >= pivot for k in range(i+1, j))
-    )
-
-
+   return r
 
 
 
