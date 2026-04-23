@@ -100,21 +100,21 @@ def fusion(t, i, k):
     left = t[:i + 1]
     right = t[i + 1:k + 1]
 
-    result = []
+    res = []
     a = b = 0
 
     while a < len(left) and b < len(right):
         if left[a] <= right[b]:
-            result.append(left[a])
+            res.append(left[a])
             a += 1
         else:
-            result.append(right[b])
+            res.append(right[b])
             b += 1
 
-    result += left[a:]
-    result += right[b:]
+    res += left[a:]
+    res += right[b:]
 
-    t[:k + 1] = result
+    t[:k + 1] = res
 
     assert_check(all(t[x] <= t[x + 1] for x in range(k)), "Fusion incorrecte")
 
@@ -127,7 +127,7 @@ def interval_sort(t):
 
     while True:
         i = 0
-        merged = False
+        merge = False
 
         while i < n - 1:
             j1, l1 = SSC(t, i)
@@ -138,11 +138,11 @@ def interval_sort(t):
             j2, l2 = SSC(t, l1 + 1)
 
             fusion(t, l1, l2)
-            merged = True
+            merge = True
 
             i = 0
 
-        if not merged:
+        if not merge:
             break
 
     return t
@@ -164,7 +164,7 @@ def run_tests():
         ("Tous identiques",    [7, 7, 7, 7]),
     ]
 
-    print(f"{'Cas':<22} {'Avant':<35} {'QuickSort':<35} {'Fusion':<35} {'Intervalles':<35} {'OK?'}")
+    print(f"{'Cas':<22} {'Avant':<35} {'TriRapid':<35} {'Fusion':<35} {'Intervalles':<35} {'OK?'}")
     print("─" * 160)
 
     for nom, t in cas:
