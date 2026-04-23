@@ -12,6 +12,18 @@ def precondition_partition(t, p, q):
     return 0 <= p <= q < len(t)
 
 
+def post_partition(t, p, q, r):
+    pivot = t[r]
+    return (
+        all(t[k] < pivot for k in range(p, r)) and
+        all(t[k] >= pivot for k in range(r + 1, q + 1))
+    )
+
+
+def swap(t, i, j):
+    t[i], t[j] = t[j], t[i]
+
+
 # ─── Procédure PARTITION alternative ──────────────────────────────────────────
 
 def swap(arr, i, j):
@@ -30,6 +42,7 @@ def partition(t, p, q):
            i += 1
            swap(t,i,j)
    swap(t,(i+1),q)
+   assert_check(post_partition(t, p, q, r), "Postcondition violée")
 
    return i+1
 
