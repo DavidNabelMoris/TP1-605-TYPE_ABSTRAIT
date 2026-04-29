@@ -164,27 +164,33 @@ def run_tests():
         ("Tous identiques",    [7, 7, 7, 7]),
     ]
 
-    print(f"{'Cas':<22} {'Avant':<35} {'TriRapid':<35} {'Fusion':<35} {'Intervalles':<35} {'OK?'}")
-    print("─" * 160)
+    with open("resultats_tests.txt", "w", encoding="utf-8") as f:
+        def write(line=""):
+            f.write(line + "\n")
 
-    for nom, t in cas:
-        avant = t.copy()
+        write(f"{'Cas':<22} {'Avant':<35} {'TriRapid':<35} {'Fusion':<35} {'Intervalles':<35} {'OK?'}")
+        write("─" * 160)
 
-        t1 = t.copy()
-        t2 = t.copy()
-        t3 = t.copy()
+        for nom, t in cas:
+            avant = t.copy()
 
-        quicksort(t1, 0, len(t1) - 1)
-        fusion = stabilized_sort(t2)
-        interval_sort(t3)
+            t1 = t.copy()
+            t2 = t.copy()
+            t3 = t.copy()
 
-        ok = (
-            is_sorted(t1) and
-            is_sorted(fusion) and
-            is_sorted(t3) and
-            sorted(avant) == t1 == fusion == t3
-        )
+            quicksort(t1, 0, len(t1) - 1)
+            fusion = stabilized_sort(t2)
+            interval_sort(t3)
 
-        print(f"{nom:<22} {str(avant):<35} {str(t1):<35} {str(fusion):<35} {str(t3):<35} {'✓' if ok else '✗ ERREUR'}")
+            ok = (
+                is_sorted(t1) and
+                is_sorted(fusion) and
+                is_sorted(t3) and
+                sorted(avant) == t1 == fusion == t3
+            )
 
-print(run_tests())
+            write(f"{nom:<22} {str(avant):<35} {str(t1):<35} {str(fusion):<35} {str(t3):<35} {'✓' if ok else '✗ ERREUR'}")
+
+    return "Résultats écrits dans resultats_tests.txt"
+
+run_tests()
