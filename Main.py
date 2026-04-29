@@ -113,7 +113,7 @@ def fusion(t, i, k):
 
     res += left[a:]
     res += right[b:]
-
+    #Remplacer les éléments de t depuis l’indice 0 jusqu’à l’indice k inclus par les éléments de res
     t[:k + 1] = res
 
     assert_check(all(t[x] <= t[x + 1] for x in range(k)), "Fusion incorrecte")
